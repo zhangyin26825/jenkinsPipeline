@@ -1,0 +1,44 @@
+group 'com.zhangyin'
+version '1.0-SNAPSHOT'
+
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'war'
+apply plugin: 'maven'
+//apply plugin: 'jetty'
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'org.akhikhl.gretty:gretty:1.2.4'
+    }
+}
+apply plugin: 'org.akhikhl.gretty'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'io.reactivex', name: 'rxjava', version: '1.1.6'
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+
+}
+//jettyRun {
+//    webAppSourceDirectory file("$projectDir/src/main/webapp")
+//    httpPort 8080
+//    reload = "automatic"
+//    scanIntervalSeconds = 1
+//    stopPort = 4321
+//    stopKey ="stop"
+//}
+gretty {
+    httpPort = 8080
+    contextPath = '/gradledemo'
+    servletContainer = 'jetty9'
+}
